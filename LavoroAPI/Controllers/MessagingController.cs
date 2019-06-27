@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Web.Http;
+using Twilio.TwiML;
 using Twilio.TwiML.Messaging;
 
 namespace LavoroAPI.Controllers
@@ -19,15 +23,18 @@ namespace LavoroAPI.Controllers
         }
 
         // POST: api/Messaging
-        public string Post([FromBody]string value)
+        public HttpResponseMessage Post([FromBody]string value)
         {
             Message message = new Message();
             message.From = "6613494046";
             message.To = "6615930958";
             message.BodyAttribute = "Hello World!";
-            Twilio.TwiML.MessagingResponse response = new Twilio.TwiML.MessagingResponse();
+            MessagingResponse response = new MessagingResponse();
             response.Append(message);
-            return response.ToString();
+
+            return this.Request.CreateResponse(
+                HttpStatusCode.OK, response.ToString(), new XmlMediaTypeFormatter()
+            );
         }
 
         // PUT: api/Messaging/5
