@@ -11,5 +11,10 @@ namespace LavoroAPI.Models
         public string PhoneNumber { get; set; }
         public string RingTo { get; set; }
         public string TwilioSid { get; set; }
+        public string FriendlyName { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
+        public string Country { get; set; }
+        public string Zip { get; set; }
     }
 }
