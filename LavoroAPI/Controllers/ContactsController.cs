@@ -38,9 +38,10 @@ namespace LavoroAPI.Controllers
                     {
                         ID = r.ID,
                         ContactName = r.ContactName,
+                        Title = r.Title,
                         Email = r.Email,
-                        PhoneNumber = r.PhoneNumber,
-                        ContactImage = r.ContactImage,
+                        Phone = r.Phone,
+                        Avatar = r.Avatar,
                         Company = r.Company,
                         Favorite = r.Favorite,
                         AccountID = r.AccountID,
@@ -62,21 +63,23 @@ namespace LavoroAPI.Controllers
                 string sql = @"
                 INSERT INTO lavoro_dev.dbo.Contacts
                 (
-                    ContactName, 
-                    Email, 
-                    PhoneNumber, 
-                    ContactImage, 
-                    Company,
-                    Favorite,
-                    AccountID
+                    ContactName 
+	                Title, 
+	                Phone,
+	                Email, 
+	                Avatar, 
+                    Company, 
+                    Favorite, 
+                    AccountID, 
                     ProviderID
                 )
                 VALUES
                 (
                     @ContactName, 
+                    @Title, 
+                    @Phone, 
                     @Email, 
-                    @PhoneNumber, 
-                    @ContactImage, 
+                    @Avatar,
                     @Company,
                     @Favorite,
                     @AccountID,
