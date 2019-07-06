@@ -175,7 +175,7 @@
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncomingMessagingController.cs" />
-    <Compile Include="Controllers\OutgoingSmsMessagingController.cs" />
+    <Compile Include="Controllers\OutgoingMessagingController.cs" />
     <Compile Include="Controllers\PhonesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -21,9 +21,9 @@ namespace LavoroAPI.Controllers
             Phones phone = new Phones();
             using (IDbConnection getdb = new SqlConnection(ConfigurationManager.ConnectionStrings["LavoroDB"].ConnectionString))
             {
-                string query = @"SELECT RingTo FROM lavoro_dev.dbo.Phones WHERE PhoneNumber = @To";
-                phone = getdb.Query<Phones>(query, new { value.To }).FirstOrDefault();
-            }
+                string query = @"SELECT ID FROM lavoro_dev.dbo.Conversations WHERE InboundNo = @To AND CallerNo = @From";
+                phone = getdb.Query<Phones>(query, new { value.To, value.From }).FirstOrDefault();
+            } 
             // Add the message to the DB
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["LavoroDB"].ConnectionString))
             {
@@ -40,12 +40,12 @@ namespace LavoroAPI.Controllers
                     @To,
                     @From
                 )";
-                db.ExecuteScalar(sql, new { MessageBody = value.Body, To = value.To, From = value.From });
+                db.ExecuteScalar(sql, new { MessageBody = value.Body, value.To, value.From });
             }
             
             // Using the phone number found in the db pass the message along to the subscribed Lavoro user
             Message message = new Message();
-            message.From = value.From;
+            message.From = value.To;
             message.To = phone.RingTo;
             message.BodyAttribute = value.Body;
             MessagingResponse response = new MessagingResponse();
