@@ -8,9 +8,11 @@ using System.Web.Http;
 using Dapper;
 using LavoroAPI.Models;
 using Newtonsoft.Json;
+using System.Web.Http.Cors;
 
 namespace LavoroAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountsController : ApiController
     {
         // GET: api/Accounts/5

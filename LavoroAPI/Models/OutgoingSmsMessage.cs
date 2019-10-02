@@ -7,9 +7,8 @@ namespace LavoroAPI.Models
 {
     public class OutgoingSmsMessage
     {
-        public string Body { get; set; }
-        public string To { get; set; }
-        public string From { get; set; }
+        public string MessageText { get; set; }
         public int ConversationID { get; set; }
+        public string Author { get; set; }
     }
 }

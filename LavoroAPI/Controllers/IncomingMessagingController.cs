@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using LavoroAPI.Models;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -7,11 +8,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Twilio.TwiML;
 using Twilio.TwiML.Messaging;
 
 namespace LavoroAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class IncomingMessagingController : ApiController
     {
         // POST: api/Messaging
@@ -31,16 +34,28 @@ namespace LavoroAPI.Controllers
                 INSERT INTO lavoro_dev.dbo.ChatMessages
                 (
                     MessageText,
-                    Sender,
-                    Recipient
+                    Author,
+                    ConversationID,
+	                Direction,
+	                SentDate
                 )
                 VALUES
                 (
-                    @MessageBody,
-                    @To,
-                    @From
+                    @MessageText,
+	                @Author,
+	                @ConversationID,
+	                0,
+	                @SentDate
                 )";
-                db.ExecuteScalar(sql, new { MessageBody = value.Body, value.To, value.From });
+                db.Query(
+                    sql, 
+                    new {
+                        MessageText = value.Body,
+                        Author = value.From,
+                        ConversationID = phone.ID,
+                        SentDate = DateTime.Now
+                    }
+                );
             }
             
             // Using the phone number found in the db pass the message along to the subscribed Lavoro user

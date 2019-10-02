@@ -5,20 +5,16 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Dapper;
 using LavoroAPI.Models;
 using Newtonsoft.Json;
 
 namespace LavoroAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ContactsController : ApiController
     {
-        // GET: api/Contacts
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         // GET: api/Contacts/5
         public HttpResponseMessage Get(int id)
         {
@@ -63,7 +59,7 @@ namespace LavoroAPI.Controllers
                 string sql = @"
                 INSERT INTO lavoro_dev.dbo.Contacts
                 (
-                    ContactName 
+                    ContactName, 
 	                Title, 
 	                Phone,
 	                Email, 
@@ -85,18 +81,18 @@ namespace LavoroAPI.Controllers
                     @AccountID,
                     @ProviderID
                 )";
-                db.ExecuteScalar(sql, new { value });
+                db.ExecuteScalar(sql, new {
+                    value.ContactName,
+                    value.Title,
+                    value.Phone,
+                    value.Email,
+                    value.Avatar,
+                    value.Company,
+                    value.Favorite,
+                    value.AccountID,
+                    value.ProviderID }
+                );
             }
-        }
-
-        // PUT: api/Contacts/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Contacts/5
-        public void Delete(int id)
-        {
         }
     }
 }
