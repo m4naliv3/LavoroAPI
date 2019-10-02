@@ -89,3 +89,6 @@ D:\Repos\LavoroAPI\LavoroAPI\obj\Release\LavoroAPI.dll
 D:\Repos\LavoroAPI\LavoroAPI\obj\Release\LavoroAPI.pdb
 D:\Repos\LavoroAPI\LavoroAPI\bin\Dapper.dll
 D:\Repos\LavoroAPI\LavoroAPI\bin\Dapper.xml
+D:\Repos\LavoroAPI\LavoroAPI\bin\System.Web.Cors.dll
+D:\Repos\LavoroAPI\LavoroAPI\bin\System.Web.Http.Cors.dll
+D:\Repos\LavoroAPI\LavoroAPI\bin\System.Web.Http.Cors.xml
