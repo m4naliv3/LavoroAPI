@@ -8,20 +8,45 @@ namespace LavoroAPI
 {
     public class DbManager
     {
-        public static string CreateUser(string username, string password)
+        public static string CreateAccount(string username, string password, string businessName, string email, string avatar)
         {
             if (!CheckUser(username))
             {
-                // Need to tie it into an account id
                 string salt = Encryption.GetSalt();
                 string pass = Encryption.HashString(password);
                 string hashedAndSalted = Encryption.HashString(pass + salt);
                 using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["LavoroDB"].ConnectionString))
                 {
-                    string query = @"INSERT INTO lavoro_dev.dbo.Users(UserName, Password, Salt, AccountId) VALUES(@User, @Password, @Salt, @AccountId)";
-                    db.Execute(query, new { Username = username, Password = hashedAndSalted, Salt = salt, AccountId = 1 });
+                    string query = @"
+                    INSERT INTO lavoro_dev.dbo.Accounts(
+                        UserName, 
+                        Password, 
+                        Salt, 
+                        PhoneNumberId,
+                        BusinessName,
+                        Email,
+                        Avatar
+                    ) 
+                    VALUES(
+                        @Username, 
+                        @Password, 
+                        @Salt, 
+                        @PhoneNumberId,
+                        @BusinessName,
+                        @Email,
+                        @Avatar
+                    )";
+                    db.Execute(query, new {
+                        Username = username,
+                        Password = hashedAndSalted,
+                        Salt = salt,
+                        PhoneNumberId = 1, // Need to get the phone number id
+                        BusinessName = businessName,
+                        Email = email,
+                        Avatar = avatar
+                    }); 
                 }
-                return "created new user " + username;
+                return "created new Account " + username;
             }
             else
             {
@@ -35,7 +60,7 @@ namespace LavoroAPI
             string user;
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["LavoroDB"].ConnectionString))
             {
-                string query = @"SELECT UserName FROM lavoro_dev.dbo.Users WHERE UserName = @Username";
+                string query = @"SELECT UserName FROM lavoro_dev.dbo.Accounts WHERE UserName = @Username";
                 user = db.Query<string>(query, new { Username = username }).FirstOrDefault();
             }
             bool kosher = (user == null) ? false : true;

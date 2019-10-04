@@ -12,10 +12,16 @@ namespace LavoroAPI.Controllers
         }
 
         // POST: api/Authentication
-        public void Post([FromBody]string username, string password)
+        public void Post([FromBody] LoginCreds login)
         {
             // need to return something to the app
-            DbManager.Login(username, password);
+            DbManager.Login(login.UserName, login.Password);
         }
+    }
+
+    public class LoginCreds
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
     }
 }
