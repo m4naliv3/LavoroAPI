@@ -1,0 +1,71 @@
+.btn {
+	background: #fff;
+	color: $gray-dark;
+	border: 1px solid $gray-light;
+	border-radius: 3px;
+	padding: 8px 12px;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 1px;
+	transition: all 0.2s linear;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	&:focus,
+	&:active {
+		outline: none;
+	}
+}
+
+.btn-primary {
+	background: $primary;
+	border-color: $dark;
+	color: #fff;
+
+	&:hover {
+		background: darken($primary, 5%);
+	}
+}
+
+.btn-secondary {
+	background: $secondary;
+	border-color: $primary;
+	color: $dark;
+
+	&:hover {
+		background: darken($secondary, 5%);
+	}
+}
+
+.btn-tab {
+	@include gradient-directional($secondary, lighten($primary, 5%), -175deg);
+	color: #fff;
+	padding: 12px;
+	font-size: 1.2rem;
+	border-bottom: none;
+
+	&:first-child {
+		border-left: none;
+		border-radius: 3px 0 0 0;
+	}
+
+	&:last-child {
+		border-radius: 0 3px 0 0;
+	}
+
+	&:hover {
+		background-size: 300%;
+	}
+}
+
+.btn-square {
+	border-radius: 0;
+}
+
+.btn-block {
+	display: block;
+	margin: auto;
+	width: 100%;
+}

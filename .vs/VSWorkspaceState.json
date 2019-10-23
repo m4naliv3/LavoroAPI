@@ -1,8 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\LavoroAPI"
+    "\\LavoroAPI",
+    "\\LavoroAPI\\Controllers",
+    "\\LavoroAPI\\React",
+    "\\LavoroAPI\\Views",
+    "\\LavoroAPI\\Views\\Shared"
   ],
-  "SelectedNode": "\\LavoroAPI.sln",
+  "SelectedNode": "\\LavoroAPI\\React\\src2",
   "PreviewInSolutionExplorer": false
 }
