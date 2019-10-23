@@ -1,0 +1,39 @@
+@mixin opacity($opacity) {
+	opacity: $opacity;
+	$opacity-ie: $opacity * 100;
+	filter: alpha(opacity=$opacity-ie); /* IE8 */
+}
+
+/* Gradients */
+@mixin gradient-x($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+	background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent);
+	background-repeat: repeat-x;
+}
+
+@mixin gradient-y($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+	background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent);
+	background-repeat: repeat-x;
+}
+
+@mixin gradient-directional($start-color: #555, $end-color: #333, $deg: 45deg) {
+	background-image: linear-gradient($deg, $start-color, $end-color);
+	background-repeat: repeat-x;
+}
+
+@mixin gradient-radial($inner-color: #555, $outer-color: #333) {
+	background-image: radial-gradient(circle, $inner-color, $outer-color);
+	background-repeat: no-repeat;
+}
+
+/* Responsive sizing */
+@mixin min-width($width) {
+	@media (min-width: $width) {
+		@content; 
+	}
+}
+
+@mixin max-width($width) {
+	@media screen and (max-width: $width) {
+		@content; 
+	}
+}
