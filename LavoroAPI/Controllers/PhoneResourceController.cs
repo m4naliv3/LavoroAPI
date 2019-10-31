@@ -13,6 +13,8 @@ namespace LavoroAPI.Controllers
         const string authToken = "5bd534fd7ba46a0f79104ac5d0de7bb4";
 
         // POST: api/PhoneResource
+        [Route("Phones")]
+        [HttpPost]
         public HttpResponseMessage Post([FromBody]int request)
         {
             TwilioClient.Init(accountSid, authToken);
