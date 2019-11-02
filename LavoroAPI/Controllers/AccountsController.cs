@@ -15,7 +15,8 @@ namespace LavoroAPI.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountsController : ApiController
     {
-        // GET: api/Accounts/5
+        [Route("Accounts/{id}")]
+        [HttpGet]
         public HttpResponseMessage Get(int id)
         {
             Accounts account = new Accounts();
@@ -33,7 +34,8 @@ namespace LavoroAPI.Controllers
             return new HttpResponseMessage() { Headers = { }, Content = new StringContent(response) };
         }
 
-        // POST: api/Accounts
+        [Route("Accounts/Create")]
+        [HttpPost]
         public void Post([FromBody] Accounts value)
         {
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["LavoroDB"].ConnectionString))
@@ -58,16 +60,6 @@ namespace LavoroAPI.Controllers
                 )";
                 db.ExecuteScalar(sql, new { value });
             }
-        }
-
-        // PUT: api/Accounts/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Accounts/5
-        public void Delete(int id)
-        {
         }
     }
 }

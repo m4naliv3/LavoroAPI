@@ -19,7 +19,8 @@ namespace LavoroAPI.Controllers
         // POST: api/Conversations
         public HttpResponseMessage Post(PhoneLookup request)
         {
-            // Return all of the messages back to the Front End
+            // Get the conversation id and the phone number associated
+            // If no open conversation then create one
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["LavoroDB"].ConnectionString))
             {
                 string sql = @"

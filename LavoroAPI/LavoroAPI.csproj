@@ -276,13 +276,9 @@
     <Compile Include="Controllers\ConversationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HttpAuthenticationChallengeContextExtensions.cs" />
-    <Compile Include="Controllers\IncomingMessagingController.cs" />
     <Compile Include="Controllers\JWTAuthenticationAttribute.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
-    <Compile Include="Controllers\OutgoingMessagingController.cs" />
-    <Compile Include="Controllers\PhoneResourceController.cs" />
     <Compile Include="Controllers\PhonesController.cs" />
-    <Compile Include="Controllers\PurchasePhoneController.cs" />
     <Compile Include="Controllers\SignupController.cs" />
     <Compile Include="DbManager.cs" />
     <Compile Include="Encryption.cs" />
