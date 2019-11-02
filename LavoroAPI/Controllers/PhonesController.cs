@@ -24,7 +24,7 @@ namespace LavoroAPI.Controllers
 
         [Route("Phones/{id}")]
         [HttpGet]
-        public HttpResponseMessage Get(int id)
+        public HttpResponseMessage GetPhoneById(int id)
         {
             Phones phone = new Phones();
             // Return all of the messages back to the Front End
@@ -43,7 +43,7 @@ namespace LavoroAPI.Controllers
 
         [Route("Phones/Search")]
         [HttpPost]
-        public HttpResponseMessage Post([FromBody]int request)
+        public HttpResponseMessage AvailablePhones([FromBody]int request)
         {
             TwilioClient.Init(accountSid, authToken);
             var local = LocalResource.Read(areaCode: request, pathCountryCode: "US", limit: 5);
@@ -65,7 +65,7 @@ namespace LavoroAPI.Controllers
 
         [Route("Phones/Purchase")]
         [HttpPost]
-        public HttpResponseMessage Post([FromBody]string phone)
+        public HttpResponseMessage PurchasePhone([FromBody]string phone)
         {
             // Need to add the okta token and do a query to see if the token is valid
             // that means we will need to create the use before we can get the phone number

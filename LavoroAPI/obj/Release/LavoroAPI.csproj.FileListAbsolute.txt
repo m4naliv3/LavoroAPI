@@ -39,3 +39,4 @@ D:\Repos\LavoroAPI\LavoroAPI\bin\Twilio.xml
 D:\Repos\LavoroAPI\LavoroAPI\obj\Release\LavoroAPI.csproj.CopyComplete
 D:\Repos\LavoroAPI\LavoroAPI\obj\Release\LavoroAPI.dll
 D:\Repos\LavoroAPI\LavoroAPI\obj\Release\LavoroAPI.pdb
+D:\Repos\LavoroAPI\LavoroAPI\obj\Release\LavoroAPI.csprojAssemblyReference.cache

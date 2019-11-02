@@ -1,12 +1,14 @@
 ﻿using Dapper;
 using LavoroAPI.Models;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Twilio;
@@ -21,7 +23,7 @@ namespace LavoroAPI.Controllers
     {
         [Route("Messages/{id}")]
         [HttpGet]
-        public HttpResponseMessage Get(int id)
+        public HttpResponseMessage GetMessagesByConversationId(int id)
         {
             List<Messages> messageList = new List<Messages>();
             // Return all of the messages back to the Front End
@@ -53,7 +55,7 @@ namespace LavoroAPI.Controllers
 
         [Route("Messages/Outgoing")]
         [HttpPost]
-        public void Post([FromBody]OutgoingSmsMessage value)
+        public void SendMessage([FromBody]OutgoingSmsMessage value)
         {
             string target = string.Empty;
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["LavoroDB"].ConnectionString))
@@ -93,7 +95,7 @@ namespace LavoroAPI.Controllers
 
         [Route("Messages/Incoming")]
         [HttpPost]
-        public HttpResponseMessage Post([FromBody]TwilioIncomingSmsMessage value)
+        public HttpResponseMessage InsertMessage([FromBody]TwilioIncomingSmsMessage value)
         {
             // Find the phone number associated with this Twilio number
             Phones phone = new Phones();

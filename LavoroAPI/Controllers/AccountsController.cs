@@ -17,7 +17,7 @@ namespace LavoroAPI.Controllers
     {
         [Route("Accounts/{id}")]
         [HttpGet]
-        public HttpResponseMessage Get(int id)
+        public HttpResponseMessage GetAccountById(int id)
         {
             Accounts account = new Accounts();
             // Return all of the messages back to the Front End
@@ -36,7 +36,7 @@ namespace LavoroAPI.Controllers
 
         [Route("Accounts/Create")]
         [HttpPost]
-        public void Post([FromBody] Accounts value)
+        public void CreateAccount([FromBody] Accounts value)
         {
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["LavoroDB"].ConnectionString))
             {
