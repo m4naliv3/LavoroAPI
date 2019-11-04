@@ -1,8 +1,8 @@
-﻿using CommunicationsPlatform.BasicAuthentication.Results;
-using System;
+﻿using System;
 using System.Net.Http.Headers;
 using System.Web.Http.Filters;
-namespace CommunicationsPlatform.BasicAuthentication.Filters
+
+namespace LavoroAPI.Controllers
 {
     public static class HttpAuthenticationChallengeContextExtensions
     {

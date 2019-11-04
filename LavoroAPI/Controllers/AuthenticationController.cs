@@ -1,5 +1,4 @@
-﻿using CommunicationsPlatform.BasicAuthentication.Filters;
-using Jose;
+﻿using Jose;
 using Newtonsoft.Json;
 using System;
 using System.Net;
@@ -12,38 +11,23 @@ namespace LavoroAPI.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AuthenticationController : ApiController
     {
-        public class LoginCreds
-        {
-            public string UserName { get; set; }
-            public string Password { get; set; }
-        }
-
-        public class CXAuthRequest
-        {
-            public string SSOKey { get; set; } // From SAML attributes (Worker Attributes)
-            public string UserName { get; set; } // From Flex Agent Dashboard Redux Store.
-        }
-        public class CXAuthCheckRequest
-        {
-            public string UserName { get; set; } // From SAML attributes (Worker Attributes)
-            public string Token { get; set; } // Current Bearer Token
-        }
-        public class CXAuthTokenCheckRequest
-        {
-            public string Token { get; set; } // Current Bearer Token
-        }
-
         private readonly byte[] _secret = System.Text.Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET"));
         private readonly int _ttl = 43200; // timeout after 12h
         private readonly int _preExpiryReissue = 3600; // reissue if the token is about to expire 
 
-        // GET: api/Authentication/{username}
-        public string Get(string username)
+        [Route("Auth/CheckUsername/{username}")]
+        [HttpGet]
+        public HttpResponseMessage UsernameAvailability(string username)
         {
-            return (DbManager.CheckUser(username)) ? "This username has already been taken" : "This username is available";
+            string thingy = string.Empty;
+            thingy = (DbManager.CheckUser(username)) ? "This username has already been taken" : "This username is available";
+
+            var response = JsonConvert.SerializeObject(thingy);
+            return new HttpResponseMessage() { Headers = { }, Content = new StringContent(response) };
         }
 
-        // POST: api/Authentication
+        [Route("Auth/Login")]
+        [HttpPost]
         public HttpResponseMessage Post([FromBody] LoginCreds login)
         {
             string json = JWT.Decode(login.Password, _secret, JwsAlgorithm.HS384);

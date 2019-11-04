@@ -1,5 +1,4 @@
-﻿using CommunicationsPlatform.BasicAuthentication.Results;
-using Jose;
+﻿using Jose;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -9,20 +8,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
 
-namespace CommunicationsPlatform.BasicAuthentication.Filters
+namespace LavoroAPI.Controllers
 {
-    public class CX_JWT_Payload
-    {
-        public long sub { get; set; }
-        public long exp { get; set; }
-    }
-
     public class JWTAuthenticationAttribute : Attribute { 
      
         public bool AllowMultiple => false;
-
         public string Realm { get; set; }
-
         private readonly byte[] _secretKey;
 
         public JWTAuthenticationAttribute()

@@ -1,7 +1,5 @@
 ﻿using Dapper;
-using LavoroAPI.Models;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;

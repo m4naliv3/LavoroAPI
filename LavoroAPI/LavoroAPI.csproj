@@ -286,6 +286,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Accounts.cs" />
+    <Compile Include="Models\Auth.cs" />
     <Compile Include="Models\Contacts.cs" />
     <Compile Include="Models\Conversations.cs" />
     <Compile Include="Models\Messages.cs" />
