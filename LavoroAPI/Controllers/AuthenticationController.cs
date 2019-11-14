@@ -1,7 +1,5 @@
 ﻿using Jose;
-using Newtonsoft.Json;
 using System;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -9,21 +7,18 @@ using System.Web.Http.Cors;
 namespace LavoroAPI.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class AuthenticationController : ApiController
+    public class AuthenticationController : LavoroApiController
     {
-        private readonly byte[] _secret = System.Text.Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET"));
-        private readonly int _ttl = 43200; // timeout after 12h
-        private readonly int _preExpiryReissue = 3600; // reissue if the token is about to expire 
+        private readonly byte[] _secret = System.Text.Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("CX_JWT_SECRET"));
+        private readonly int _ttl = 86400; // timeout after 24hr
 
         [Route("Auth/CheckUsername/{username}")]
         [HttpGet]
         public HttpResponseMessage UsernameAvailability(string username)
         {
-            string thingy = string.Empty;
-            thingy = (DbManager.CheckUser(username)) ? "This username has already been taken" : "This username is available";
+            string thingy = (DbManager.CheckUser(username)) ? "This username has already been taken" : "This username is available";
 
-            var response = JsonConvert.SerializeObject(thingy);
-            return new HttpResponseMessage() { Headers = { }, Content = new StringContent(response) };
+            return JsonResponse(new { Message = thingy });
         }
 
         [Route("Auth/Login")]
@@ -40,9 +35,7 @@ namespace LavoroAPI.Controllers
 
             var claims = new CX_JWT_Payload { sub = key, exp = _ttl };
 
-            var token = JWT.Encode(claims, _secret, JwsAlgorithm.HS384);
-            var response = JsonConvert.SerializeObject(token);
-            return new HttpResponseMessage() { Headers = { }, Content = new StringContent(response) };
+            return JsonResponse(new { Token = JWT.Encode(claims, _secret, JwsAlgorithm.HS384) });
         }
     }
 }

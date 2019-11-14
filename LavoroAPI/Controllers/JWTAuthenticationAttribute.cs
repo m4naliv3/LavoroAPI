@@ -18,7 +18,7 @@ namespace LavoroAPI.Controllers
 
         public JWTAuthenticationAttribute()
         {
-            _secretKey = System.Text.Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("CX_JWT_SECRET"));
+            _secretKey = System.Text.Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET"));
         }
 
         public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
