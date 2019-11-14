@@ -1,64 +1,46 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Web.Http;
-using Dapper;
-using LavoroAPI.Models;
-using Newtonsoft.Json;
+using LavoroAPI.SqlRepository;
 using System.Web.Http.Cors;
+using LavoroAPI.Models;
+using System.Collections.Generic;
 
 namespace LavoroAPI.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class AccountsController : ApiController
+    public class AccountsController : LavoroApiController
     {
+        AccountsRepository _accountRepository = new AccountsRepository();
+
         [Route("Accounts/{id}")]
         [HttpGet]
         public HttpResponseMessage GetAccountById(int id)
         {
-            Accounts account = new Accounts();
-            // Return all of the messages back to the Front End
-            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["LavoroDB"].ConnectionString))
-            {
-                string sql = @"
-                    SELECT *
-                    FROM lavoro_dev.dbo.Accounts
-                    WHERE ID = @ID
-                ";
-                account = db.Query<Accounts>(sql, new { ID = id }).FirstOrDefault();
-            }
-            var response = JsonConvert.SerializeObject(account);
-            return new HttpResponseMessage() { Headers = { }, Content = new StringContent(response) };
+            Account account = _accountRepository.GetAccountById(id);
+            return JsonResponse(account);
         }
 
         [Route("Accounts/Create")]
         [HttpPost]
-        public void CreateAccount([FromBody] Accounts value)
+        public void CreateAccount([FromBody] Account account)
         {
-            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["LavoroDB"].ConnectionString))
-            {
-                // Connect to DB and insert each one individually
-                string sql = @"
-                INSERT INTO lavoro_dev.dbo.Accounts
-                (
-                    BusinessName, 
-                    RingTo, 
-                    PhoneNumberID, 
-                    UserName, 
-                    Avatar
-                )
-                VALUES
-                (
-                    @BusinessName, 
-                    @RingTo, 
-                    @PhoneNumberID, 
-                    @UserName, 
-                    @Avatar
-                )";
-                db.ExecuteScalar(sql, new { value });
-            }
+            _accountRepository.CreateAccount(account);
+        }
+
+        [Route("Account/Contacts/{id}")]
+        [HttpGet]
+        public HttpResponseMessage GetAccountContacts(int id)
+        {
+            List<Contact> contacts = _accountRepository.GetAccountContacts(id);
+            return JsonResponse(contacts);
+        }
+
+        [Route("Account/Conversations/{id}")]
+        [HttpPost]
+        public HttpResponseMessage GetConversation(PhoneLookup request)
+        {
+            PhoneLookup conversation = _accountRepository.GetConversation(request);
+            return JsonResponse(conversation);
         }
     }
 }

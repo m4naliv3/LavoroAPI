@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LavoroAPI.Models
 {
-    public class Contacts
+    public class Contact
     {
         public int ID { get; set; }
         public string ContactName { get; set; }

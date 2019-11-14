@@ -16,6 +16,7 @@ using Twilio.Rest.Api.V2010.Account;
 namespace LavoroAPI.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [JWTAuthentication]
     public class PhonesController : ApiController
     {
 
@@ -26,7 +27,7 @@ namespace LavoroAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetPhoneById(int id)
         {
-            Phones phone = new Phones();
+            Phone phone = new Phone();
             // Return all of the messages back to the Front End
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["LavoroDB"].ConnectionString))
             {
@@ -35,7 +36,7 @@ namespace LavoroAPI.Controllers
                     FROM lavoro_dev.dbo.Phones
                     WHERE ID = @ID
                 ";
-                phone = db.Query<Phones>(sql, new { ID = id }).FirstOrDefault();
+                phone = db.Query<Phone>(sql, new { ID = id }).FirstOrDefault();
             }
             var response = JsonConvert.SerializeObject(phone);
             return new HttpResponseMessage() { Headers = { }, Content = new StringContent(response) };

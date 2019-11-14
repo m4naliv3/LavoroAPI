@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LavoroAPI.Models
 {
-    public class Messages
+    public class Message
     {
         public int ID { get; set; }
         public int ConversationID { get; set; }

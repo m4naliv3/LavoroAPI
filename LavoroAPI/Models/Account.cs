@@ -1,6 +1,6 @@
 ﻿namespace LavoroAPI.Models
 {
-    public class Accounts
+    public class Account
     {
         public int ID { get; set; }
         public string BusinessName { get; set; }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LavoroAPI.Models
 {
-    public class Phones
+    public class Phone
     {
         public int ID { get; set; }
         public string PhoneNumber { get; set; }
