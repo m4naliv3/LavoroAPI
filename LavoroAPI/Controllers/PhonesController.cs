@@ -20,8 +20,8 @@ namespace LavoroAPI.Controllers
     public class PhonesController : ApiController
     {
 
-        const string accountSid = "AC618dc060cc8ca10b4101a3ecfbaf1553";
-        const string authToken = "5bd534fd7ba46a0f79104ac5d0de7bb4";
+        const string accountSid = "NU UH";
+        const string authToken = "BLAH";
 
         [Route("Phones/{id}")]
         [HttpGet]
